@@ -41,4 +41,20 @@ Finally, click on "Generate Token"  and the token will be created. Copy this tok
 
 ### 2 Save the token as a Secrets.  
 
-The token saved, now should be attributed to one secret variable.
+The token saved, now we should attribute the token value to one secret.  
+Go to the repository __Settings__. 
+
+
+![alt text](image.png)  
+
+Select __Secrets and Variables__ and click on __Actions__:![alt text](image-1.png)   
+
+
+Now, click on button __"New reposistory secret"__.  And paste the token value, and give a name to this variable. Finally, click on __"Add secret"__ .
+
+![alt text](image-2.png)  
+
+All done! Now, we can use this value into bearer token and send requests.   
+
+
+### 3. Create the workflow that will call the external workflow from another repository
