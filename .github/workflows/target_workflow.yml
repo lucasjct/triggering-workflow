@@ -1,17 +1,13 @@
-name: My Target Workflow
+name: Receive repository dispatch event
 
 on:
+  # Listen to a repository dispatch event by the name of `dispatch-event`
   repository_dispatch:
-    types: [trigger-workflow]
-    
+    types: [dispatch-event]
+
 jobs:
-  build:
+  log:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-         ref: ${{ github.event.client_payload.sha }}
-
-      # Add your workflow steps here
+      - name: Event received
+        run: echo "Event received"
