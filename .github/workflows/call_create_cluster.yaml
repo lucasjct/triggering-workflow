@@ -14,4 +14,4 @@ jobs:
         run: echo "Hello, world!"  
 
   create-kind:
-   uses: lucasjct/reusable-workflows//home/lucasjct/workspace/reusable-workflows/.github/workflows/create-cluster.yml
+   uses: lucasjct/reusable-workflows/.github/workflows/create-cluster.yml@main
