@@ -1,0 +1,17 @@
+name: Receive repository dispatch event
+
+on:
+  # Listen to a repository dispatch event by the name of `dispatch-event`
+  workflow_dispatch:
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run some hello
+        run: echo "Hello, world!"  
+
+  create-kind:
+   uses: lucasjct/reusable-workflows//home/lucasjct/workspace/reusable-workflows/.github/workflows/create-cluster.yml
