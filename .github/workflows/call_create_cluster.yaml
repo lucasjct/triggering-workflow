@@ -1,4 +1,4 @@
-name: Receive repository dispatch event
+name: Reusable workflow
 
 on:
   # Listen to a repository dispatch event by the name of `dispatch-event`
