@@ -65,4 +65,64 @@ Now, click on button __"New reposistory secret"__.  And paste the token value, a
 All done! Now, we can use this value into bearer token and send requests.   
 
 
-### 3. Create the workflow that will call the external workflow from another repository
+### 3. Create the workflow that will call the external workflow from another repository   
+
+Now, first lets create the step that will execute the request to another workflow:   
+
+```bash
+name: Send repository dispatch event
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger-event:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Second fire event
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.TOKEN_ACCESS }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/lucasjct/github-actions/dispatches \
+            -d '{"event_type":"dispatch-event"}'  
+```   
+
+In the example above, we are using the GitHub API to trigger the workflow sending request to `https://api.github.com/repos/<OWNER-REPO>/<PROJECT-NAME>/dispatches`, to endpoint __/dispatches__. Note that we are using the TOKEN_ACCESS created on step before. Now, we need apply to another repository the type `dispatch-event`.      
+
+
+### 4 - Apply the correct workflow type to external repository called.    
+
+Note below the type `[dispatch-event]` to `repository_dispatch`, this workflow will run when the request `https://api.github.com/repos/lucasjct/github-actions/dispatches`  be triggered.
+
+
+```bash
+name: First Workflow
+on:
+  repository_dispatch:
+    types: [dispatch-event]
+jobs:
+  first-job:
+    runs-on: ubuntu-latest # environments (runner)
+    steps:
+      - name: Print greeting and Good Bey
+        run: | 
+          echo "Hello World"
+          echo "Good Bye"
+
+```  
+
+To make a workflow be triggered by another workflow, first we need follow the step 3 (config the curl with token and dispatch event), and apply this informations on workflow target: 
+
+
+``
+on:
+  repository_dispatch:
+    types: [dispatch-event]
+```  
+
+The workflow will listen the called presents on `https://api.github.com/repos/lucasjct/github-actions/dispatches` .  
+
+
