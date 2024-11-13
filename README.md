@@ -90,7 +90,9 @@ jobs:
             -d '{"event_type":"dispatch-event"}'  
 ```   
 
-In the example above, we are using the GitHub API to trigger the workflow sending request to `https://api.github.com/repos/<OWNER-REPO>/<PROJECT-NAME>/dispatches`, to endpoint __/dispatches__. Note that we are using the TOKEN_ACCESS created on step before. Now, we need apply to another repository the type `dispatch-event`.      
+In the example above, we are using the GitHub API to trigger the workflow sending request to `https://api.github.com/repos/<OWNER-REPO>/<PROJECT-NAME>/dispatches`, to endpoint __/dispatches__. Note that we are using the TOKEN_ACCESS created on step before. We access it with the sintaxy `${{ secrets.TOKEN_ACCESS }}` .
+
+ Now, we need apply to another repository the type `dispatch-event`.      
 
 
 ### 4 - Apply the correct workflow type to external repository called.    
@@ -111,18 +113,17 @@ jobs:
         run: | 
           echo "Hello World"
           echo "Good Bye"
-
 ```  
 
 To make a workflow be triggered by another workflow, first we need follow the step 3 (config the curl with token and dispatch event), and apply this informations on workflow target: 
 
 
-``
+```bash
 on:
   repository_dispatch:
     types: [dispatch-event]
 ```  
 
-The workflow will listen the called presents on `https://api.github.com/repos/lucasjct/github-actions/dispatches` .  
+THis workflow will listen the called presents on `https://api.github.com/repos/lucasjct/github-actions/dispatches` .  
 
 
