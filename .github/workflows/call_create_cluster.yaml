@@ -1,14 +1,13 @@
-name: Reusable workflow
+name: Receive request from another repository
 
 on:
-  # Listen to a repository dispatch event by the name of `dispatch-event`
   workflow_dispatch:
 
 jobs:
   log:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Run some hello
         run: echo "Hello, world!"  
